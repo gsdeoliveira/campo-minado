@@ -111,6 +111,10 @@ public class Campo {
 		return marcado;
 	}
 	
+	public boolean isMinado() {
+		return minado;
+	}
+	
 	public void setMarcado(boolean marcado) {
 		this.marcado = marcado;
 	}
