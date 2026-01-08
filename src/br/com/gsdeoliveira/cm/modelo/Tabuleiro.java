@@ -3,6 +3,8 @@ package br.com.gsdeoliveira.cm.modelo;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.gsdeoliveira.cm.excecao.ExplosaoException;
+
 public class Tabuleiro {
 	
 	private int linhas;
@@ -49,10 +51,15 @@ public class Tabuleiro {
 	}
 	
 	public void abrir(int linha, int coluna) {
-		campos.stream()
+		try {
+			campos.stream()
 			.filter(c -> c.getLinha() == linha && c.getColuna() == coluna)
 			.findFirst()
-			.ifPresent(c -> c.abrir());
+			.ifPresent(c -> c.abrir());			
+		} catch (ExplosaoException e) {
+			campos.forEach(c -> c.setAberto(true));
+			throw e;
+		}
 	}
 	
 	public void marcar(int linha, int coluna) {
